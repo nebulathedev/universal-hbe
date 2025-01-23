@@ -1,6 +1,6 @@
 local HitboxExpanderConfiguration: {Limb: string, Size: number, Shape: Enum.PartType, Color: Color3, Material: Enum.Material, MaterialVariant: string, Transparency: number, Reflectance: number, CastShadow: boolean, EnableFluidForces: boolean, CanCollide: boolean, CanTouch: boolean, CanQuery: boolean, Locked: boolean, CustomPhysicalProperties: PhysicalProperties, Massless: boolean, RootPriority: number, Fixes: boolean} = {
 	-- Basic
-	Limb = {"Head"}, -- "All": expands every limb no matter their name, except the Root.
+	Limb = {"Torso", "UpperTorso", "LowerTorso", "RightUpperArm", "LeftUpperArm", "RightFoot", "LeftFoot"}, -- "All": expands every limb no matter their name, except the Root.
 	Size = 15,
 	
 	-- Customization
@@ -94,7 +94,9 @@ local Analyse: (BasePart) -> (BasePart) = function(BasePart: BasePart)
 		end);
 		
 		Lock(BasePart, "Size", Vector3.new(HitboxExpanderConfiguration.Size, HitboxExpanderConfiguration.Size, HitboxExpanderConfiguration.Size));
-		Lock(BasePart, "Shape", HitboxExpanderConfiguration.Shape);
+		if (BasePart:IsA("Part")) then
+                        Lock(BasePart, "Shape", HitboxExpanderConfiguration.Shape);
+                end;
 		Lock(BasePart, "Color", HitboxExpanderConfiguration.Color);
 		Lock(BasePart, "Material", HitboxExpanderConfiguration.Material);
 		Lock(BasePart, "MaterialVariant", HitboxExpanderConfiguration.MaterialVariant);
